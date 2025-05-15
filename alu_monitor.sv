@@ -21,7 +21,9 @@ class alu_monitor extends uvm_monitor;
     if (!uvm_config_db#(virtual alu_if)::get(this, "", "vif", vif))
       `uvm_fatal("MON_IF", $sformatf("Error to get vif for %s", get_full_name)) 
       
-      mon_analysis_port = new("mon_analysis_po
+      mon_analysis_port = new("mon_analysis_port", this);
+      `uvm_info("END_PHASE", $sformatf("Finishing build_phase for %s", 
+              get_full_name()), UVM_NONE)    
   uvm_analysis_port #(alu_tx) mon_analysis_port;
   
   function void build_phase(uvm_phase phase);
