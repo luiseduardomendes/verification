@@ -1,7 +1,7 @@
 //  Module: alu_top
 //
-`include "alu_core.sv"
-`include "parity_core.sv"
+`include "rtl/alu_core.sv"
+`include "rtl/parity_core.sv"
 module alu_top
   /*  package imports  */
   #(
