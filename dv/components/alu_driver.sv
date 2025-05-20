@@ -11,17 +11,17 @@ function void build_phase(uvm_phase phase);
   `uvm_info("START_PHASE", $sformatf("Starting build_phase for %s", 
             get_full_name()), UVM_NONE)  
   
-  uvm_config_db#(uvm_active_passive_enum)::get(this, "", "is_active", 			               							 is_active);
+  uvm_config_db#(uvm_active_passive_enum)::get(this, "", "is_active", is_active);
   
   if (!uvm_config_db#(virtual alu_if)::get(this, "", "vif", vif))
     `uvm_fatal("DRV_IF", $sformatf("Error to get vif for %s", get_full_name)) 
 
-  `uvm_info("END_PHASE", $sformatf("Finishing build_phase for %s", 
+  `uvm_info("END_PHASE", $sformatf("Finishing build_phase for %s",
             get_full_name()), UVM_NONE)    
 endfunction: build_phase
     
   task run_phase(uvm_phase phase);
-      super.run_phase(phase)
+      super.run_phase(phase);
   `uvm_info("START_PHASE", $sformatf("Starting run_phase for %s", 
             get_full_name()), UVM_NONE)  
   initial_rst();
@@ -63,7 +63,7 @@ endfunction: build_phase
     
     wait (vif.ready_op == 1'b1);
     
-    vif.valid_ip < = 1'b0;
+    vif.valid_ip <= 1'b0;
   endtask : drive_active
   
   task drive_passive();

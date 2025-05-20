@@ -13,7 +13,7 @@ class alu_tx extends uvm_sequence_item;
   // Variables
   rand bit [`DATA_WIDTH - 1: 0]	data_ip_1;
   rand bit [`DATA_WIDTH - 1: 0]	data_ip_2;
-  bit sel_t						sel_ip;
+  sel_t sel_ip;
   
   bit [`DATA_WIDTH*2 - 1: 0]	data_ip_2;
   
@@ -21,7 +21,7 @@ class alu_tx extends uvm_sequence_item;
   	`uvm_field_int (data_ip_1, 	UVM_DEFAULT|UVM_DEC)
   	`uvm_field_int (data_ip_2, 	UVM_DEFAULT|UVM_DEC)
   	`uvm_field_int (data_op, 	UVM_DEFAULT|UVM_DEC)
-  	`uvm_field_enum(sel_ip, 	UVM_DEFAULT)
+  	`uvm_field_enum(sel_t, sel_ip,  	UVM_DEFAULT)
   `uvm_object_utils_end
   
   // Constraints
@@ -35,15 +35,15 @@ class alu_tx extends uvm_sequence_item;
     	data_ip_2 <= `DATA_WIDTH;
     }
   }
-  constraint c_shift {
+  constraint c_incr {
     if (sel_ip == ALU_INCR || sel_ip == ALU_DECR) {
       data_ip_2 inside {0, 1};
     }
   }
       
   function new (string name = "alu_tx");
-     super.new(name)
-   endfunction
+     super.new(name);
+   endfunction : new
 
   
   

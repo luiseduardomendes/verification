@@ -1,6 +1,6 @@
 `include "uvm_macros.svh"
-`include "alu_if.sv"
-`include "alu_pkg.sv"
+//`include "dv/alu_if.sv"
+//`include "dv/alu_pkg.sv"
 
 module top_tb;
   import uvm_pkg::*;

@@ -4,12 +4,16 @@ run:
 ifeq ($(SIM),questa)
 	vsim -do scripts/run_questa.tcl
 else ifeq ($(SIM),vcs)
-	vcs -R -sverilog +v2k -timescale=1ns/1ps \
-	    -ntb_opts uvm \
-	    -LDFLAGS -Wl,--no-as-needed \
+	vcs -sverilog -timescale=1ns/1ps \
 	    -debug_access+all \
+	    -ntb_opts uvm \
+	    +incdir+./rtl +incdir+ \
 	    -top top_tb \
-	    rtl/*.sv dv/*.sv dv/components/*.sv dv/objects/*.sv
+	    ./dv/alu_pkg.sv \
+	    ./dv/alu_if.sv \
+	    ./rtl/alu_top.sv \
+	    ./dv/testbench.sv \
+	    -R
 else ifeq ($(SIM),xcelium)
 	xrun -64bit -uvm -access +rwc \
 	     -timescale 1ns/1ps \

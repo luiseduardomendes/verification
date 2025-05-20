@@ -7,10 +7,9 @@ package alu_pkg;
 	`define SEL_WIDTH 	3
 
 	// include files
-    `include "../dv/objects/alu_tx.sv"
-    `include "../dv/objects/alu_sequencer.sv"
-    `include "../dv/components/alu_agent.sv"
-    `include "../dv/components/alu_driver.sv"
-    `include "../dv/components/alu_monitor.sv"
-    
+    `include "dv/objects/alu_tx.sv"
+    `include "dv/objects/alu_sequencer.sv"
+    `include "dv/components/alu_driver.sv"
+    `include "dv/components/alu_monitor.sv"
+    `include "dv/components/alu_agent.sv" 
 endpackage: alu_pkg

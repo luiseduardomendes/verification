@@ -9,22 +9,20 @@ class alu_agent extends uvm_agent;
   
    function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    `uvm_info("START_PHASE", $sformatf("Starting build_phase for %s", 
-              get_full_name()), UVM_NONE)  
+    `uvm_info("START_PHASE", $sformatf("Starting build_phase for %s", get_full_name()), UVM_NONE)  
 	
-    uvm_config_db#(uvm_active_passive_enum)::get(this, "", "is_active", 			               							 is_active);
+    uvm_config_db#(uvm_active_passive_enum)::get(this, "", "is_active", is_active);
 
      if (is_active == UVM_ACTIVE) begin
        m_seqr = alu_sequencer::type_id::create("m_seqr", this);
      end
-       m_drv = alu_driver::type_id::create("m_drv", this);
-     
-     m_mon = alu_monitor::type_id::create(m_mon, this);
+     m_drv = alu_driver::type_id::create("m_drv", this);
+     m_mon = alu_monitor::type_id::create("m_mon", this);
                                           
-    uvm_config_db#(uvm_active_passive_enum)::set(null, "m_drv", "is_active", 			               							 is_active);
-    uvm_config_db#(uvm_active_passive_enum)::set(null, "m_mon", "is_active", 			               							 is_active);
+    uvm_config_db#(uvm_active_passive_enum)::set(null, "m_drv", "is_active", is_active);
+    uvm_config_db#(uvm_active_passive_enum)::set(null, "m_mon", "is_active", is_active);
      
-    `uvm_info("END_PHASE", $sformatf("Finishing build_phase for %s"), 
+    `uvm_info("END_PHASE", $sformatf("Finishing build_phase for %s", 
               get_full_name()), UVM_NONE)
     
   endfunction: build_phase
