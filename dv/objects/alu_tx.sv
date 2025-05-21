@@ -16,8 +16,6 @@ class alu_tx extends uvm_sequence_item;
   bit [`DATA_WIDTH*2 - 1: 0]	data_op;
   sel_t sel_ip;
   
-  bit [`DATA_WIDTH*2 - 1: 0]	data_ip_2;
-  
   `uvm_object_utils_begin(alu_tx)
   	`uvm_field_int (data_ip_1, 	UVM_DEFAULT|UVM_DEC)
   	`uvm_field_int (data_ip_2, 	UVM_DEFAULT|UVM_DEC)
@@ -53,4 +51,4 @@ class alu_tx extends uvm_sequence_item;
 
   
   
-endclass : alu_tx;
+endclass : alu_tx
