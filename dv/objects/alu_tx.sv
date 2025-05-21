@@ -13,6 +13,7 @@ class alu_tx extends uvm_sequence_item;
   // Variables
   rand bit [`DATA_WIDTH - 1: 0]	data_ip_1;
   rand bit [`DATA_WIDTH - 1: 0]	data_ip_2;
+  bit [`DATA_WIDTH*2 - 1: 0]	data_op;
   sel_t sel_ip;
   
   bit [`DATA_WIDTH*2 - 1: 0]	data_ip_2;
@@ -40,6 +41,11 @@ class alu_tx extends uvm_sequence_item;
       data_ip_2 inside {0, 1};
     }
   }
+
+  function void print_2;
+    `uvm_info("PRINT_ITEM", $sformatf("%p", this), UVM_LOW)
+  endfunction : print_2
+
       
   function new (string name = "alu_tx");
      super.new(name);
