@@ -15,13 +15,15 @@ class alu_tx extends uvm_sequence_item;
   rand bit [  `DATA_WIDTH - 1: 0]	data_ip_2;
   rand bit [                0: 0]	parity_ip;
   bit      [`DATA_WIDTH*2 - 1: 0]	data_op;
-  sel_t                           sel_ip;
+  bit					err_op;
+  rand sel_t                           sel_ip;
   
   `uvm_object_utils_begin(alu_tx)
   	`uvm_field_int (data_ip_1, 	UVM_DEFAULT|UVM_DEC)
   	`uvm_field_int (data_ip_2, 	UVM_DEFAULT|UVM_DEC)
   	`uvm_field_int (data_op, 	  UVM_DEFAULT|UVM_DEC)
-    `uvm_field_int (parity_ip, 	UVM_DEFAULT|UVM_DEC)
+	`uvm_field_int (err_op,		UVM_DEFAULT|UVM_DEC)
+        `uvm_field_int (parity_ip, 	UVM_DEFAULT|UVM_DEC)
   	`uvm_field_enum(sel_t, sel_ip,  	UVM_DEFAULT)
   `uvm_object_utils_end
   
@@ -69,6 +71,9 @@ class alu_tx extends uvm_sequence_item;
     `uvm_info("PRINT_ITEM", $sformatf("%p", this), UVM_LOW)
   endfunction : print_item
 
+  function string get_item_str;
+    return $sformatf("%p", this);
+  endfunction : get_item_str
       
   function new (string name = "alu_tx");
      super.new(name);
@@ -76,5 +81,4 @@ class alu_tx extends uvm_sequence_item;
 
   
   
-endclass : alu_tx
 endclass : alu_tx

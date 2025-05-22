@@ -8,7 +8,7 @@ class alu_monitor extends uvm_monitor;
   function new(string name = "alu_monitor", uvm_component parent);
     super.new(name, parent);
   endfunction : new
-  
+ 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     `uvm_info("START_PHASE", $sformatf("Starting build_phase for %s", 
@@ -20,7 +20,7 @@ class alu_monitor extends uvm_monitor;
     end
     
     if (!uvm_config_db#(virtual alu_if)::get(this, "", "vif", vif))
-      `uvm_fatal("MON_IF", $sformatf("Error to get vif for %s", get_full_name)) 
+      `uvm_fatal("MON_IF", $sformatf("Error to get vif for %s", get_full_name())) 
       
     mon_analysis_port = new("mon_analysis_port", this);
     `uvm_info("END_PHASE", $sformatf("Finishing build_phase for %s", 
@@ -35,7 +35,7 @@ class alu_monitor extends uvm_monitor;
       passive_monitor();
   endtask : run_phase
     
-  task active_mon();
+  task active_monitor();
     alu_tx item;
     
     forever begin
@@ -45,11 +45,11 @@ class alu_monitor extends uvm_monitor;
         // Capture input signals
         item.data_ip_1 = vif.data_ip_1;
         item.data_ip_2 = vif.data_ip_2;
-        item.sel_ip   = alu_op_t'(vif.sel_ip);  // Proper enum casting
+        item.sel_ip   = sel_t'(vif.sel_ip);  // Proper enum casting
         item.parity_ip = vif.parity_ip;
         
-        `uvm_info("ACTIVE_MON", $sformatf("Captured input transaction:\n%s", 
-                  item.print_item()), UVM_HIGH)
+        `uvm_info("ACTIVE_MON", $sformatf("Captured input transaction:\n%s", item.get_item_str()),
+                  UVM_HIGH)
         mon_analysis_port.write(item);
       end
     end
@@ -63,11 +63,11 @@ class alu_monitor extends uvm_monitor;
         item = alu_tx::type_id::create("item");
         // Capture output signals
         item.data_op   = vif.data_op;
-        item.parity_op = vif.parity_op;
+        item.parity_ip = vif.parity_ip;
         item.err_op    = vif.err_op;
         
         `uvm_info("PASSIVE_MON", $sformatf("Captured output transaction:\n%s", 
-                  item.print_item()), UVM_HIGH)
+                  item.get_item_str()), UVM_HIGH)
         mon_analysis_port.write(item);
       end
     end

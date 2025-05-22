@@ -1,6 +1,6 @@
 `include "uvm_macros.svh"
-`include "dv/alu_if.sv"
-`include "dv/alu_pkg.sv"
+//`include "dv/alu_if.sv"
+//`include "dv/alu_pkg.sv"
 
 module top_tb;
   import uvm_pkg::*;
@@ -31,6 +31,7 @@ module top_tb;
     .data_ip_1(dut_if.data_ip_1),
     .data_ip_2(dut_if.data_ip_2),
     .ready_op(dut_if.ready_op),
+    .parity_ip(dut_if.parity_ip),
 
     // Output Interface
     .valid_op(dut_if.valid_op),
