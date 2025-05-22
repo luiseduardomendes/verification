@@ -41,15 +41,16 @@ endfunction: build_phase
   
   
   task initial_rst();
-    vif.rst <= 1'b1;
+    vif.rst       <= 1'b1;
     vif.data_ip_1 <= 'b0;
     vif.data_ip_2 <= 'b0;
-    vif.sel_ip <= 'b0;
-    vif.valid_ip <= 'b0;
+    vif.sel_ip    <= 'b0;
+    vif.parity_ip <= 1'b0;
+    vif.valid_ip  <= 1'b0;
     
     repeat (2)
       @(posedge vif.clk);
-    vif.rst <= 1'b0;
+    vif.rst       <= 1'b0;
   endtask : initial_rst
   
   task drive_active(alu_tx m_item);
@@ -57,9 +58,10 @@ endfunction: build_phase
     vif.data_ip_1 <= m_item.data_ip_1;
     vif.data_ip_2 <= m_item.data_ip_2;
     vif.sel_ip	<= m_item.sel_ip;
+    vif.parity_ip <= m_item.parity_ip;
     vif.valid_ip  <= 1'b1;
     `uvm_info("DRIVER", "ITEM WAS PUT IN THE IF:", UVM_LOW)
-    m_item.print();
+    m_item.print_item();
     
     wait (vif.ready_op == 1'b1);
     

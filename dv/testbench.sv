@@ -1,6 +1,6 @@
 `include "uvm_macros.svh"
-//`include "dv/alu_if.sv"
-//`include "dv/alu_pkg.sv"
+`include "dv/alu_if.sv"
+`include "dv/alu_pkg.sv"
 
 module top_tb;
   import uvm_pkg::*;
@@ -47,14 +47,14 @@ module top_tb;
   // Reset generation and test start
   initial begin
     // Apply reset
-    dut_if.rst = 1'b1;
-    repeat(5) @(posedge clk);
-    dut_if.rst = 1'b0;
+    //dut_if.rst = 1'b1;
+    //repeat(5) @(posedge clk);
+    //dut_if.rst = 1'b0;
     
     // Store the interface in config DB
     uvm_config_db#(virtual alu_if#(.DATA_WIDTH(`DATA_WIDTH), .SEL_WIDTH(`SEL_WIDTH)))::set(
       null, 
-      "uvm_test_top.*", 
+      "uvm_test_top", 
       "vif",
       dut_if
     );
