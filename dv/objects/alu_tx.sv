@@ -77,3 +77,4 @@ class alu_tx extends uvm_sequence_item;
   
   
 endclass : alu_tx
+endclass : alu_tx
