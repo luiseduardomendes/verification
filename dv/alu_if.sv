@@ -12,11 +12,13 @@ interface alu_if #(
   logic [SEL_WIDTH-1:0] 		sel_ip;
   logic [DATA_WIDTH-1:0]		data_ip_1;
   logic [DATA_WIDTH-1:0]		data_ip_2;
+  logic 						parity_ip;
   logic 						ready_op;
   
   // Output Interface
   logic 						valid_op;
   logic [(DATA_WIDTH*2)-1:0]	data_op;
   logic 						ready_ip;
+  logic 						err_op;
   
 endinterface : alu_if

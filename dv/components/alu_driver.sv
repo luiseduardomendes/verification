@@ -11,17 +11,17 @@ function void build_phase(uvm_phase phase);
   `uvm_info("START_PHASE", $sformatf("Starting build_phase for %s", 
             get_full_name()), UVM_NONE)  
   
-  uvm_config_db#(uvm_active_passive_enum)::get(this, "", "is_active", 			               							 is_active);
+  uvm_config_db#(uvm_active_passive_enum)::get(this, "", "is_active", is_active);
   
   if (!uvm_config_db#(virtual alu_if)::get(this, "", "vif", vif))
     `uvm_fatal("DRV_IF", $sformatf("Error to get vif for %s", get_full_name)) 
 
-  `uvm_info("END_PHASE", $sformatf("Finishing build_phase for %s", 
+  `uvm_info("END_PHASE", $sformatf("Finishing build_phase for %s",
             get_full_name()), UVM_NONE)    
 endfunction: build_phase
     
   task run_phase(uvm_phase phase);
-      super.run_phase(phase)
+      super.run_phase(phase);
   `uvm_info("START_PHASE", $sformatf("Starting run_phase for %s", 
             get_full_name()), UVM_NONE)  
   initial_rst();
@@ -41,15 +41,16 @@ endfunction: build_phase
   
   
   task initial_rst();
-    vif.rst <= 1'b1;
+    vif.rst       <= 1'b1;
     vif.data_ip_1 <= 'b0;
     vif.data_ip_2 <= 'b0;
-    vif.sel_ip <= 'b0;
-    vif.valid_ip <= 'b0;
+    vif.sel_ip    <= 'b0;
+    vif.parity_ip <= 1'b0;
+    vif.valid_ip  <= 1'b0;
     
     repeat (2)
       @(posedge vif.clk);
-    vif.rst <= 1'b0;
+    vif.rst       <= 1'b0;
   endtask : initial_rst
   
   task drive_active(alu_tx m_item);
@@ -57,13 +58,14 @@ endfunction: build_phase
     vif.data_ip_1 <= m_item.data_ip_1;
     vif.data_ip_2 <= m_item.data_ip_2;
     vif.sel_ip	<= m_item.sel_ip;
+    vif.parity_ip <= m_item.parity_ip;
     vif.valid_ip  <= 1'b1;
     `uvm_info("DRIVER", "ITEM WAS PUT IN THE IF:", UVM_LOW)
-    m_item.print();
+    m_item.print_item();
     
     wait (vif.ready_op == 1'b1);
     
-    vif.valid_ip < = 1'b0;
+    vif.valid_ip <= 1'b0;
   endtask : drive_active
   
   task drive_passive();
